@@ -4,12 +4,17 @@ import logger from '../config/logger.js';
 
 const protect = (req, res, next) => {
   let token;
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
     token = req.headers.authorization.split(' ')[1];
   }
 
   if (!token) {
-    return next(new AppError('You are not logged in! Please get a service key.', 401));
+    return next(
+      new AppError('You are not logged in! Please get a service key.', 401)
+    );
   }
 
   try {
@@ -19,7 +24,9 @@ const protect = (req, res, next) => {
     next();
   } catch (err) {
     logger.error(`JWT verification error: ${err.message}`);
-    return next(new AppError('Invalid service key. Please get a valid service key.', 401));
+    return next(
+      new AppError('Invalid service key. Please get a valid service key.', 401)
+    );
   }
 };
 

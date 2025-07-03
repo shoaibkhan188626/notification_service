@@ -5,7 +5,13 @@ const notificationController = {
   async sendNotification(req, res, next) {
     try {
       const { type, recipient, subject, message, externalId } = req.body;
-      const notification = await notificationService.sendNotification({ type, recipient, subject, message, externalId });
+      const notification = await notificationService.sendNotification({
+        type,
+        recipient,
+        subject,
+        message,
+        externalId,
+      });
       res.status(201).json({
         status: 'success',
         data: notification,
@@ -20,7 +26,8 @@ const notificationController = {
     try {
       const { notificationId } = req.params;
       await notificationService.softDeleteNotification(notificationId);
-      res.status(204).json({ // 204 No Content for successful deletion
+      res.status(204).json({
+        // 204 No Content for successful deletion
         status: 'success',
         data: null,
       });

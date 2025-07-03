@@ -1,14 +1,17 @@
-
 import mongoose from 'mongoose';
 import logger from './logger.js';
 
 export const connectDB = async () => {
   const isProduction = process.env.NODE_ENV === 'production';
-  const uri = isProduction ? process.env.MONGO_URI_ATLAS : process.env.MONGO_URI_LOCAL;
+  const uri = isProduction
+    ? process.env.MONGO_URI_ATLAS
+    : process.env.MONGO_URI_LOCAL;
 
   if (!uri) {
     const missingUriType = isProduction ? 'MONGO_URI_ATLAS' : 'MONGO_URI_LOCAL';
-    throw new Error(`MongoDB URI (${missingUriType}) is not defined in environment variables.`);
+    throw new Error(
+      `MongoDB URI (${missingUriType}) is not defined in environment variables.`
+    );
   }
 
   try {

@@ -8,6 +8,7 @@ The **Notification Service** is a microservice designed to handle notification-r
 - **License**: MIT
 
 ## Table of Contents
+
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -21,6 +22,7 @@ The **Notification Service** is a microservice designed to handle notification-r
 - [License](#license)
 
 ## Features
+
 - Send notifications (email, SMS) for hospital-related events.
 - Secure API with JWT authentication.
 - Logger integration for audit trails.
@@ -28,6 +30,7 @@ The **Notification Service** is a microservice designed to handle notification-r
 - Unit tests for core functionality.
 
 ## Prerequisites
+
 - **Node.js**: v18.x or later
 - **npm**: v9.x or later
 - **MongoDB**: Local instance or MongoDB Atlas
@@ -35,6 +38,7 @@ The **Notification Service** is a microservice designed to handle notification-r
 - **Git**: For cloning the repository
 
 ## Installation
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/shoaibkhan188626/notification_service.git
@@ -46,7 +50,9 @@ The **Notification Service** is a microservice designed to handle notification-r
    ```
 
 ## Configuration
+
 Create a `.env` file in the root directory with the following variables:
+
 ```
 NODE_ENV=development
 PORT=8081
@@ -63,16 +69,20 @@ LOG_LEVEL=info
 - `HOSPITAL_SERVICE_URL` points to the Hospital Service instance.
 
 ## Running the Service
+
 ### Local Development
+
 1. Ensure MongoDB is running locally or via Docker.
 2. Start the service:
    ```bash
    npm run dev
    ```
+
    - Uses `nodemon` to watch for file changes.
    - Expected output: `Server running on port 8081` in `logs/combined.log`.
 
 ### Production
+
 1. Build the application:
    ```bash
    npm run build
@@ -83,17 +93,20 @@ LOG_LEVEL=info
    ```
 
 ## API Endpoints
+
 All endpoints require a `Authorization: Bearer <SERVICE_KEY_JWT>` header. Use the `generate-jwt.js` script to create the JWT (see `utils/generate-jwt.js`).
 
 ### Health Check
+
 - **Method**: GET
 - **URL**: `/health`
 - **Headers**: None
-- **Response**: 
+- **Response**:
   - `200 OK`
   - Body: `{"status": "OK"}`
 
 ### Send Notification
+
 - **Method**: POST
 - **URL**: `/api/notifications`
 - **Headers**:
@@ -130,18 +143,22 @@ All endpoints require a `Authorization: Bearer <SERVICE_KEY_JWT>` header. Use th
   - Notes: `externalId` links to a Hospital Service entity (e.g., hospital `externalId`).
 
 ## Testing
+
 1. Run unit tests:
    ```bash
    npm test
    ```
+
    - Uses Jest with MongoMemoryServer for in-memory MongoDB.
 2. Run integration tests:
    ```bash
    node test-integration.js
    ```
+
    - Requires Hospital Service running at `http://localhost:8082`.
 
 ## Docker Support
+
 1. Build and run with Docker Compose:
    ```bash
    docker-compose up -d
@@ -152,11 +169,13 @@ All endpoints require a `Authorization: Bearer <SERVICE_KEY_JWT>` header. Use th
    ```
 
 ## Compliance
+
 - **NDHM**: Audit logs via Winston for health data traceability.
 - **DPDP Act**: Soft deletion of notification records, minimal data retention.
 - **Telemedicine Guidelines**: Supports hospital notification workflows.
 
 ## Contributing
+
 1. Fork the repository.
 2. Create a feature branch: `git checkout -b feature-name`.
 3. Commit changes: `git commit -m "Add feature-name"`.
@@ -164,4 +183,5 @@ All endpoints require a `Authorization: Bearer <SERVICE_KEY_JWT>` header. Use th
 5. Open a Pull Request.
 
 ## License
+
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

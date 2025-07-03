@@ -42,7 +42,10 @@ const notificationService = {
       }
 
       if (!sendResult.success) {
-        throw new AppError(`Failed to send ${type} notification: ${sendResult.message}`, 500);
+        throw new AppError(
+          `Failed to send ${type} notification: ${sendResult.message}`,
+          500
+        );
       }
 
       notification.status = 'sent';
@@ -52,12 +55,17 @@ const notificationService = {
     } catch (error) {
       notification.status = 'failed';
       await notification.save(); // Attempt to save with failed status
-      logger.error(`Failed to send or save notification ${notificationId}: ${error.message}`);
+      logger.error(
+        `Failed to send or save notification ${notificationId}: ${error.message}`
+      );
       // Re-throw as AppError if not already, or wrap generic errors
       if (error instanceof AppError) {
         throw error;
       } else {
-        throw new AppError(`Notification sending failed: ${error.message}`, 500);
+        throw new AppError(
+          `Notification sending failed: ${error.message}`,
+          500
+        );
       }
     }
   },
@@ -77,11 +85,16 @@ const notificationService = {
       logger.info(`Notification ${notificationId} soft-deleted.`);
       return notification;
     } catch (error) {
-      logger.error(`Failed to soft-delete notification ${notificationId}: ${error.message}`);
+      logger.error(
+        `Failed to soft-delete notification ${notificationId}: ${error.message}`
+      );
       if (error instanceof AppError) {
         throw error;
       } else {
-        throw new AppError(`Failed to soft-delete notification: ${error.message}`, 500);
+        throw new AppError(
+          `Failed to soft-delete notification: ${error.message}`,
+          500
+        );
       }
     }
   },

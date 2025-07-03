@@ -26,7 +26,16 @@ const validateNotification = (req, res, next) => {
   next();
 };
 
-router.post('/', protect, validateNotification, notificationController.sendNotification);
-router.delete('/:notificationId', protect, notificationController.softDeleteNotification);
+router.post(
+  '/',
+  protect,
+  validateNotification,
+  notificationController.sendNotification
+);
+router.delete(
+  '/:notificationId',
+  protect,
+  notificationController.softDeleteNotification
+);
 
 export default router;
