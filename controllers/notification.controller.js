@@ -1,6 +1,5 @@
 import notificationService from '../services/notification.service.js';
 import logger from '../config/logger.js';
-import CustomError from '../utils/error.js';
 
 const notificationController = {
   async sendNotification(req, res, next) {
@@ -12,7 +11,21 @@ const notificationController = {
         data: notification,
       });
     } catch (err) {
-      logger.error(`Notification error: ${err.message}`);
+      logger.error(`Notification controller error: ${err.message}`);
+      next(err); // Pass the error to the global error handler
+    }
+  },
+
+  async softDeleteNotification(req, res, next) {
+    try {
+      const { notificationId } = req.params;
+      await notificationService.softDeleteNotification(notificationId);
+      res.status(204).json({ // 204 No Content for successful deletion
+        status: 'success',
+        data: null,
+      });
+    } catch (err) {
+      logger.error(`Soft delete notification controller error: ${err.message}`);
       next(err);
     }
   },
