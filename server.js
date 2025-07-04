@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8081;
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
-      logger.info(`Server running on port ${PORT}`);
+      logger.info(`✅ Notification Server running on port ${PORT}`);
     });
   })
   .catch((err) => {
